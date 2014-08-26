@@ -5,6 +5,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.decorators import api_view
+from rest_framework.renderers import JSONRenderer
 
 
 @api_view(('GET',))
@@ -23,7 +24,8 @@ class Translate(generics.CreateAPIView):
     def post(self, request, format=None):
         if (request.DATA['input_text']):
             data = { 'output_text': u'sup!' }
-            return Response(data)
+            json = JSONRenderer().render(data)
+            return Response(json)
         else:
             content = {'error': 'that is which is known as a bad request'}
             return Response(content, status=status.HTTP_404_NOT_FOUND)
