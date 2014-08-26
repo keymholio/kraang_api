@@ -1,10 +1,10 @@
 from django.conf.urls import patterns, url, include
-from rest_framework import routers
 from talk import views
+from rest_framework import routers
 
-router = routers.DefaultRouter()
-router.register(r'sentences', views.SentenceViewSet)
+#router = routers.DefaultRouter()
+#router.register(r'translate', 'translate', views.Translate)
 
 urlpatterns = patterns('',
-    url(r'^', include(router.urls)),
+    url(r'^translate/$', views.Translate.as_view(), name='translate'),
 )
