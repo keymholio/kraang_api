@@ -104,7 +104,7 @@ class Translate(generics.CreateAPIView):
         # remove double "the"s
         result = re.sub(""".(the|that)(?<=[Tt]he.the)""", '', result)
         # remove "the","an", "a" before "that" or "the"
-        result = re.sub("""([Tt]he\s|[Aa]n\s|[Aa]\s)(?=(that|the))""", '', result)
+        result = re.sub("""(\s[Tt]he\s|\s[Aa]n\s|\s[Aa]\s)(?=(that|the))""", '', result)
 
         result = self.capitalize(result)
 
