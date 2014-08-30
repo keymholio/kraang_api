@@ -20,7 +20,7 @@ def api_root(request, format=None):
 
 class Translate(generics.CreateAPIView):
     """
-    API endpoint that creates kraang translated sentences
+    API endpoint that creates translated kraang sentences
     """
     permission_classes = (AllowAny,)
     serializer_class = SentenceSerializer
@@ -83,7 +83,8 @@ class Translate(generics.CreateAPIView):
                 if index == 0 or \
                    (prev_tag and
                     "NN" not in prev_tag and
-                    "POS" not in prev_tag):
+                    "POS" not in prev_tag and
+                    "JJ" not in prev_tag):
 
                     if tags[key] == "NNPS":
                         result += random.choice(prop_plurals)
@@ -104,7 +105,7 @@ class Translate(generics.CreateAPIView):
         # remove double "the"s
         result = re.sub(""".(the|that)(?<=[Tt]he.the)""", '', result)
         # remove "the","an", "a" before "that" or "the"
-        result = re.sub("""(\s[Tt]he\s|\s[Aa]n\s|\s[Aa]\s)(?=(that|the))""", '', result)
+        result = re.sub("""([Tt]he\s|[Aa]n\s|[Aa]\s)(?=(that|the))""", '', result)
 
         result = self.capitalize(result)
 
