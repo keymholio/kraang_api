@@ -3,8 +3,32 @@ from talk.views import Translate
 import mock
 import random
 import unittest
+from django.core.urlresolvers import reverse
+from rest_framework import status
+from rest_framework.test import APITestCase
 
-@unittest.skip("Don't want to test")
+
+class TestAPI(APITestCase):
+    def test_post(self):
+        """
+        Ensure we can create a kraang translated sentence as a service
+        """
+        url = reverse('translate')
+        data = {'input_text': 'Donny likes April'}
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_bad_req(self):
+        """
+        Test a bad request
+        """
+        url = reverse('translate')
+        data = {'some_other_data': 'Bad data'}
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data, '{"error": "that is which is known as a bad request"}')
+
+
 class TestCapitalization(TestCase):
     def setUp(self):
         self.translate = Translate()

@@ -26,16 +26,17 @@ class Translate(generics.CreateAPIView):
     serializer_class = SentenceSerializer
 
     def post(self, request, format=None):
-        if (request.DATA['input_text']):
-            sentence = request.DATA['input_text']
+        input_text = request.DATA.get('input_text')
+        if (input_text):
+            sentence = input_text
             result = self.kraang(sentence)
-            data = { 'output_text': result }
+            data = { 'kraang': result }
             json = JSONRenderer().render(data)
-            return Response(json)
+            return Response(json, status.HTTP_201_CREATED)
         else:
             content = {'error': 'that is which is known as a bad request'}
             json = JSONRenderer().render(content)
-            return Response(json, status=status.HTTP_404_NOT_FOUND)
+            return Response(json, status=status.HTTP_400_BAD_REQUEST)
 
     def kraang(self, sentence):
         """ Modify the sentence into 'kraang' speech
