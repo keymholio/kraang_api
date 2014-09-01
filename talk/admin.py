@@ -1,3 +1,8 @@
 from django.contrib import admin
+from talk.models import Sentence
 
-# Register your models here.
+
+class SentenceAdmin(admin.ModelAdmin):
+    list_display = ('created', 'input_text', 'output_text')
+    fields = ('input_text',)
+admin.site.register(Sentence, SentenceAdmin)

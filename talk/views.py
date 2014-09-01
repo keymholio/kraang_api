@@ -1,6 +1,7 @@
 import random
 import re
 from rest_framework import status
+from talk.models import Sentence
 from talk.serializers import SentenceSerializer
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
@@ -18,6 +19,7 @@ def api_root(request, format=None):
         'translate': reverse('translate', request=request, format=format)
     })
 
+
 class Translate(generics.CreateAPIView):
     """
     API endpoint that creates translated kraang sentences
@@ -26,12 +28,15 @@ class Translate(generics.CreateAPIView):
     serializer_class = SentenceSerializer
 
     def post(self, request, format=None):
-        input_text = request.DATA.get('input_text')
-        if (input_text):
-            sentence = input_text
+        data = request.DATA.copy()
+        sentence = data.get('input_text')
+        if (sentence):
             result = self.kraang(sentence)
-            data = { 'kraang': result }
-            json = JSONRenderer().render(data)
+            data['output_text'] = result
+            s = Sentence(input_text=sentence, output_text=result)
+            s.save()
+            json_dict = {'kraang': result}
+            json = JSONRenderer().render(json_dict)
             return Response(json, status.HTTP_201_CREATED)
         else:
             content = {'error': 'that is which is known as a bad request'}
@@ -106,12 +111,12 @@ class Translate(generics.CreateAPIView):
         # remove double "the"s
         result = re.sub(""".(the|that)(?<=[Tt]he.the)""", '', result)
         # remove "the","an", "a" before "that" or "the"
-        result = re.sub("""([Tt]he\s|[Aa]n\s|[Aa]\s)(?=(that|the))""", '', result)
+        result = re.sub("""([Tt]he\s|[Aa]n\s|[Aa]\s)(?=(that|the))""", '',
+                        result)
 
         result = self.capitalize(result)
 
         return result
-
 
     def capitalize(self, sentence):
         """ Capitalize the first letter of each sentence

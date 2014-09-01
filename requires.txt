@@ -1,12 +1,17 @@
 Django==1.6.6
 Markdown==2.4.1
 PyYAML==3.11
+coverage==3.7.1
 django-filter==0.7
 django-nose==1.2
 djangorestframework==2.3.14
+flake8==2.2.3
+mccabe==0.2.1
 mock==1.0.1
 nose==1.3.4
+pep8==1.5.7
 psycopg2==2.5.3
+pyflakes==0.8.1
 textblob==0.8.4
 textblob-aptagger==0.2.0
 wsgiref==0.1.2
