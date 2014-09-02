@@ -1,29 +1,20 @@
 """
 Django settings for kraang_api project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.6/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ['KRAANG_SECRET_KEY']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ['KRAANG_DEBUG']
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = os.environ['KRAANG_DEBUG']
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,23 +42,18 @@ WSGI_APPLICATION = 'kraang_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'kraang_api',
-        'USER': 'andrew',
-        'PASSWORD': 'awesome',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': os.environ['KRAANG_DB'],
+        'USER': os.environ['KRAANG_DB_USERNAME'],
+        'PASSWORD': os.environ['KRAANG_DB_PASSWORD'],
+        'HOST': os.environ['KRAANG_DB_HOST'],
+        'PORT': os.environ['KRAANG_DB_PORT'],
     }
 }
 
-
-# REST framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
     'PAGINATE_BY': 10
 }
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.6/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -81,8 +67,6 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
-
 STATIC_URL = '/static/'
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
