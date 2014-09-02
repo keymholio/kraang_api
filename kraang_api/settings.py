@@ -7,11 +7,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = os.environ['KRAANG_SECRET_KEY']
 
-DEBUG = bool(os.environ.get('KRAANG_DEBUG', ''))
+def bool_env(val):
+    """Replaces string based environment values with Python booleans"""
+    return True if os.environ.get(val, False) == 'True' else False
+
+DEBUG = bool_env('KRAANG_DEBUG')
 
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ['KRAANG_ALLOWED_HOSTS']
 
 # Application definition
 INSTALLED_APPS = (
