@@ -7,9 +7,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = os.environ['KRAANG_SECRET_KEY']
 
-DEBUG = os.environ['KRAANG_DEBUG']
+DEBUG = bool(os.environ.get('KRAANG_DEBUG', ''))
 
-TEMPLATE_DEBUG = os.environ['KRAANG_DEBUG']
+TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
 
