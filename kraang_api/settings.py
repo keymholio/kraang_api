@@ -39,15 +39,9 @@ ROOT_URLCONF = 'kraang_api.urls'
 
 WSGI_APPLICATION = 'kraang_api.wsgi.application'
 
+import dj_database_url
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['KRAANG_DB'],
-        'USER': os.environ['KRAANG_DB_USERNAME'],
-        'PASSWORD': os.environ['KRAANG_DB_PASSWORD'],
-        'HOST': os.environ['KRAANG_DB_HOST'],
-        'PORT': os.environ['KRAANG_DB_PORT'],
-    }
+    'default': dj_database_url.config()
 }
 
 REST_FRAMEWORK = {
@@ -75,3 +69,7 @@ NOSE_ARGS = [
     '--with-coverage',
     '--cover-package=talk',
 ]
+
+from django.core.wsgi import get_wsgi_application
+from dj_static import Cling
+application = Cling(get_wsgi_application())
