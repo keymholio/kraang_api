@@ -1,5 +1,6 @@
 import random
 import re
+import nltk
 from rest_framework import status
 from talk.models import Sentence
 from talk.serializers import SentenceSerializer
@@ -12,6 +13,8 @@ from rest_framework.renderers import JSONRenderer
 from textblob import TextBlob
 from textblob_aptagger import PerceptronTagger
 
+# set the path to the natural language tokenizer
+nltk.data.path.append('./talk/nltk/')
 
 @api_view(('GET',))
 def api_root(request, format=None):
