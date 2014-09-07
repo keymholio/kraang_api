@@ -25,8 +25,7 @@ class TestAPI(APITestCase):
         data = {'some_other_data': 'Bad data'}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data, '{"error": "that is which is known as '
-                         'a bad request"}')
+        self.assertEqual(response.data, {'error': 'that is which is known as a bad request'})
 
 
 class TestCapitalization(TestCase):

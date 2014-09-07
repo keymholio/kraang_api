@@ -39,12 +39,10 @@ class Translate(generics.CreateAPIView):
             s = Sentence(input_text=sentence, output_text=result)
             s.save()
             json_dict = {'kraang': result}
-            json = JSONRenderer().render(json_dict)
-            return Response(json, status.HTTP_201_CREATED)
+            return Response(json_dict, status.HTTP_201_CREATED)
         else:
             content = {'error': 'that is which is known as a bad request'}
-            json = JSONRenderer().render(content)
-            return Response(json, status=status.HTTP_400_BAD_REQUEST)
+            return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
     def kraang(self, sentence):
         """ Modify the sentence into 'kraang' speech
