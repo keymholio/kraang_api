@@ -2,6 +2,7 @@ from django.test import TestCase
 from talk.views import Translate
 import mock
 import random
+import unittest
 from django.core.urlresolvers import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -55,9 +56,14 @@ class TestCapitalization(TestCase):
         self.assertEqual(s, "Let's skateboard in the Dojo with Mikey.")
 
     def test_tricky_period_sentence(self):
-        sentence = "mikey went to st. louis."
+        sentence = "mikey went to St. Louis."
         s = Translate.capitalize(self.translate, sentence)
-        self.assertEqual(s, "Mikey went to st. louis.")
+        self.assertEqual(s, "Mikey went to St. Louis.")
+
+    def test_lots_of_punctuation(self):
+        sentence = "this is the test string! will it work? let's find out. it should work! or should it? oh yes. indeed."
+        s = Translate.capitalize(self.translate, sentence)
+        self.assertEqual(s, "This is the test string! Will it work? Let's find out. It should work! Or should it? Oh yes. Indeed.")
 
 
 class TestKraangSpeech(TestCase):

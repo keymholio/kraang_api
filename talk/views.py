@@ -122,10 +122,13 @@ class Translate(generics.CreateAPIView):
     def capitalize(self, sentence):
         """ Capitalize the first letter of each sentence
         """
-        blob = TextBlob(sentence, pos_tagger=PerceptronTagger())
-        s = ""
-        for sent in blob.sentences:
-            curr_sent = sent.string.strip()
-            s += curr_sent[0].upper() + curr_sent[1:] + " "
+        # trim whitespace
+        sentence = sentence.strip()
+        sents = re.split('([.!?] *)', sentence)
+        cap_sent = ''
 
-        return s.strip()
+        for s in sents:
+            if (len(s)):
+                cap_sent = cap_sent + s[0].capitalize() + s[1:]
+
+        return cap_sent
