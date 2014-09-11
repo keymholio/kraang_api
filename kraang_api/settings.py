@@ -86,6 +86,4 @@ NOSE_ARGS = [
     '--cover-package=talk',
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    'mashape.com',
-)
+CORS_ORIGIN_ALLOW_ALL = True
