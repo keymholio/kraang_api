@@ -8,7 +8,6 @@ django-filter==0.7
 django-nose==1.2
 djangorestframework==2.3.14
 flake8==2.2.3
-gunicorn==19.1.1
 mccabe==0.2.1
 mock==1.0.1
 nltk==3.0.0b2
@@ -19,4 +18,5 @@ pyflakes==0.8.1
 static3==0.5.1
 textblob==0.8.4
 textblob-aptagger==0.2.0
+uWSGI==2.0.7
 wsgiref==0.1.2
