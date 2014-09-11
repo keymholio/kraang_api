@@ -26,6 +26,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'talk',
 )
 
@@ -36,6 +37,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 )
 
 ROOT_URLCONF = 'kraang_api.urls'
@@ -83,3 +85,7 @@ NOSE_ARGS = [
     '--with-coverage',
     '--cover-package=talk',
 ]
+
+CORS_ORIGIN_WHITELIST = (
+    'mashape.com',
+)
