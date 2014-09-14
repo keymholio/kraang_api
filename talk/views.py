@@ -114,6 +114,12 @@ class Translate(generics.CreateAPIView):
         # remove "the","an", "a" before "that" or "the"
         result = re.sub("""([Tt]he\s|[Aa]n\s|[Aa]\s)(?=(that|the))""", '',
                         result)
+        # Change 'I am' to 'Kraang is'
+        result = re.sub("""(I\sam|[Ww]e\sare)""", 'Kraang is', result)
+        # Change 'I, we, us, our' to 'Kraang'
+        result = re.sub("""(I\s|[Ww]e\s|[Uu]s\s|[Oo]ur\s)""", 'Kraang ', result)
+        # Change 'my' to 'Kraang's'
+        result = re.sub("""[Mm]y""", 'Kraang\'s', result)
 
         result = self.capitalize(result)
 

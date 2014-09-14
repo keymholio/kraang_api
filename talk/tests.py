@@ -184,3 +184,25 @@ class TestKraangSpeech(TestCase):
         s = Translate.kraang(self.translate, sentence)
         self.assertEqual(s, u"The things which are named Turtles fight "
                          "the things which are named Foot Clan soldiers.")
+
+    def test_i_am(self):
+        sentence = "I am hot. We are very hot."
+        s = Translate.kraang(self.translate, sentence)
+        self.assertEqual(s, u"Kraang is hot. Kraang is very hot.")
+
+    @mock.patch('random.choice')
+    def test_i(self, random_call):
+        sentence = "I will destroy Turtles and we will win."
+        random_call.return_value = "<kraang> "
+        s = Translate.kraang(self.translate, sentence)
+        self.assertEqual(s, u"Kraang will destroy <kraang> Turtles and Kraang will win.")
+
+    def test_reflective(self):
+        sentence = "I We we Us us Our our"
+        s = Translate.kraang(self.translate, sentence)
+        self.assertEqual(s, u"Kraang Kraang Kraang Kraang Kraang Kraang Kraang")
+
+    def test_possesive(self):
+        sentence = "My my"
+        s = Translate.kraang(self.translate, sentence)
+        self.assertEqual(s, u"Kraang's Kraang's")
