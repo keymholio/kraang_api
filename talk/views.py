@@ -9,12 +9,12 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.decorators import api_view
-from rest_framework.renderers import JSONRenderer
 from textblob import TextBlob
 from textblob_aptagger import PerceptronTagger
 
 # set the path to the natural language tokenizer
 nltk.data.path.append('./talk/nltk/')
+
 
 @api_view(('GET',))
 def api_root(request, format=None):
@@ -88,10 +88,10 @@ class Translate(generics.CreateAPIView):
 
             if key in tags:
                 if index == 0 or \
-                   (prev_tag and
-                    "NN" not in prev_tag and
-                    "POS" not in prev_tag and
-                    "JJ" not in prev_tag):
+                    (prev_tag and
+                        "NN" not in prev_tag and
+                        "POS" not in prev_tag and
+                        "JJ" not in prev_tag):
 
                     if tags[key] == "NNPS":
                         result += random.choice(prop_plurals)
