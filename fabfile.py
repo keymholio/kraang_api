@@ -7,7 +7,7 @@ env.password=os.environ['KRAANG_SERVER_PW']
 
 def deploy():
     run("service nginx stop")
-    run("uwsgi --stop /tmp/project-master.pid")
+    run("uwsgi --stop /tmp/master.pid")
 
     with cd("/var/www/kraang.io"):
         with cd("src"):
