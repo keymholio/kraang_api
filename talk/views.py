@@ -35,9 +35,6 @@ class Translate(generics.CreateAPIView):
         sentence = data.get('input_text')
         if (sentence):
             result = self.kraang(sentence)
-            data['output_text'] = result
-            s = Sentence(input_text=sentence, output_text=result)
-            s.save()
             json_dict = {'kraang': result}
             return Response(json_dict, status.HTTP_201_CREATED)
         else:

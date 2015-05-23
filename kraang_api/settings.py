@@ -45,9 +45,11 @@ ROOT_URLCONF = 'kraang_api.urls'
 
 WSGI_APPLICATION = 'kraang_api.wsgi.application'
 
-import dj_database_url
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'kraang',
+    }
 }
 
 REST_FRAMEWORK = {
