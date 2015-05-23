@@ -7,7 +7,9 @@ env.password=os.environ['KRAANG_SERVER_PW']
 
 def deploy():
     run("service nginx stop")
-    run("uwsgi --stop /tmp/master.pid")
+    if run("file '/tmp/master.pid'", warn_only=True).succeeded:
+        if run("uwsgi --stop /tmp/master.pid", warn_only=True).succeeded:
+            run("echo 'stopped with pid...'")
 
     with cd("/var/www/kraang.io"):
         with cd("src"):
