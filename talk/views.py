@@ -143,8 +143,6 @@ class Hipchat(Translate):
         data = request.data.copy()
         sentence = data['item']['message']['message']
         sentence = re.sub('\/.*? ', '', sentence)
-        import pdb
-        pdb.set_trace()
         if (sentence):
             result = self.kraang(sentence)
             json_dict = {
