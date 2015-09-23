@@ -147,7 +147,7 @@ class Hipchat(Translate):
             result = self.kraang(sentence)
             json_dict = {
                 'color': 'red',
-                'message': '(krang)' + result,
+                'message': '(krang) ' + result,
                 'notify': False,
                 'message_format': 'text'
             }
