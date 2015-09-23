@@ -21,7 +21,7 @@ psycopg2==2.5.3
 pycrypto==2.6.1
 pyflakes==0.8.1
 static3==0.5.1
-textblob==0.9.0
+textblob==0.8.4
 textblob-aptagger==0.2.0
 uWSGI==2.0.7
 wsgiref==0.1.2
