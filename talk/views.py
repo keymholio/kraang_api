@@ -142,6 +142,7 @@ class Hipchat(Translate):
     def post(self, request, format=None):
         data = request.data.copy()
         sentence = data['item']['message']['message']
+        sentence = re.sub('^(\/.* )', '', sentence)
         if (sentence):
             result = self.kraang(sentence)
             json_dict = {
