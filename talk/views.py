@@ -143,12 +143,11 @@ class Hipchat(Translate):
         data = request.data.copy()
         sentence = data['item']['message']['message']
         sentence = re.sub('\/.*? ', '', sentence)
-        sentence = "(krang) " + sentence
         if (sentence):
             result = self.kraang(sentence)
             json_dict = {
                 'color': 'red',
-                'message': result,
+                'message': '(krang)' + result,
                 'notify': False,
                 'message_format': 'text'
             }
