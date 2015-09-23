@@ -19,7 +19,8 @@ nltk.data.path.append('./talk/nltk/')
 @api_view(('GET',))
 def api_root(request, format=None):
     return Response({
-        'translate': reverse('translate', request=request, format=format)
+        'translate': reverse('translate', request=request, format=format),
+        'hipchat': reverse('hipchat', request=request, format=format)
     })
 
 
@@ -31,7 +32,7 @@ class Translate(generics.CreateAPIView):
     serializer_class = SentenceSerializer
 
     def post(self, request, format=None):
-        data = request.DATA.copy()
+        data = request.data.copy()
         sentence = data.get('input_text')
         if (sentence):
             result = self.kraang(sentence)
@@ -135,3 +136,21 @@ class Translate(generics.CreateAPIView):
                 cap_sent = cap_sent + s[0].capitalize() + s[1:]
 
         return cap_sent
+
+class Hipchat(Translate):
+
+    def post(self, request, format=None):
+        data = request.data.copy()
+        sentence = data['item']['message']['message']
+        if (sentence):
+            result = self.kraang(sentence)
+            json_dict = {
+                'color': 'red',
+                'message': result,
+                'notify': False,
+                'message_format': 'text'
+            }
+            return Response(json_dict, status.HTTP_201_CREATED)
+        else:
+            content = {'error': 'that is which is known as a bad request'}
+            return Response(content, status=status.HTTP_400_BAD_REQUEST)
