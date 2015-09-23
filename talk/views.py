@@ -140,7 +140,7 @@ class Translate(generics.CreateAPIView):
 class Hipchat(Translate):
 
     def post(self, request, format=None):
-        data = request.DATA.copy()
+        data = request.data.copy()
         sentence = data['item']['message']['message']
         if (sentence):
             result = self.kraang(sentence)
