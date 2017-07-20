@@ -16,5 +16,3 @@ as the Dojo.
 
 This project is built with Django Rest Framework. As such, the typical python
 commands apply when running this project.
-
-[ ![Codeship Status for keymholio/kraang_api](https://codeship.io/projects/26de67c0-21d2-0132-3162-1ec6e6e8060f/status)](https://codeship.io/projects/36356)
